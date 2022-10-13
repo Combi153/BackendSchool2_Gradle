@@ -1,6 +1,6 @@
 package date1013.parser;
 
-import date1013.domain.Hospital;
+import date1013.parser.domain.Hospital;
 
 public class HospitalParser implements Parser<Hospital>{
     @Override

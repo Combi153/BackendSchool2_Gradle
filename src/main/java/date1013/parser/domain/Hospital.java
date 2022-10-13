@@ -1,4 +1,4 @@
-package date1013.domain;
+package date1013.parser.domain;
 
 public class Hospital {
     private String id;

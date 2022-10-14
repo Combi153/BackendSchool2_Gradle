@@ -1,6 +1,6 @@
 package date1013.writer;
 
-import date1013.parser.domain.Hospital;
+import date1013.domain.Hospital;
 
 import java.io.BufferedWriter;
 import java.io.File;

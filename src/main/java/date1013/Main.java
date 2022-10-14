@@ -1,6 +1,6 @@
 package date1013;
 
-import date1013.parser.domain.Hospital;
+import date1013.domain.Hospital;
 import date1013.parser.HospitalParser;
 import date1013.parser.LineReader;
 import date1013.writer.HospitalWriter;

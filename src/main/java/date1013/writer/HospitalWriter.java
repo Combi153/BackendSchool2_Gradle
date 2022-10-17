@@ -34,10 +34,11 @@ public class HospitalWriter implements SqlWriter<List<Hospital>>{
     public void writeSql(List<Hospital> contents) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
         String insertStatement = """
-                INSERT INTO `seoul_hospital`.`seoul_hospital`
-                (`id`, `address`, `district`, `category`, `emergency_room`, `name`, `subdivision`)
+                INSERT INTO `likelion-hospital`.`seoul-hospital`
+                (`hospital_id`,`address`,`district`,`category`,`emergency_room`,`name`,`subdivision`)
                 VALUES""";
-        writer.write(insertStatement);
+
+           writer.write(insertStatement);
         for (int i = 0; i < contents.size(); i++) {
             Hospital content = contents.get(i);
             writer.newLine();

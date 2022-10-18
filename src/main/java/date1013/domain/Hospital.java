@@ -19,6 +19,16 @@ public class Hospital {
         this.subdivision = setSubdivision(name);
     }
 
+    public Hospital(String id, String address, String district, String category, int emergency_room, String name, String subdivision) {
+        this.id = id;
+        this.address = address;
+        this.district = district;
+        this.category = category;
+        this.emergency_room = emergency_room;
+        this.name = name;
+        this.subdivision = subdivision;
+    }
+
     public Hospital(String[] strRow) {
         this.id = strRow[0];
         this.address = strRow[1];

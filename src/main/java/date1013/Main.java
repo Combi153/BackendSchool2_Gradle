@@ -20,6 +20,7 @@ public class Main {
         HospitalWriter writer = new HospitalWriter(targetName);
         writer.writeSql(hospitals);*/
         HospitalDao hospitalDao = new HospitalDao();
-        hospitalDao.add(hospitals);
+//        hospitalDao.add(hospitals);
+        System.out.println(hospitalDao.getById("A1100006"));
     }
 }

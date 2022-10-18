@@ -11,4 +11,3 @@ public class HospitalParser implements Parser<Hospital>{
         return hospital;
     }
 }
-//0 1 2 6 10

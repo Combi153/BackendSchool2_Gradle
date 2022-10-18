@@ -2,20 +2,24 @@ package date1013.dao;
 
 import date1013.domain.Hospital;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Map;
 
 public class HospitalDao {
 
-    public void add(List<Hospital> hospitals) throws SQLException, ClassNotFoundException, IOException {
+    private String dbHost;
+    private String dbUser;
+    private String dbPassword;
+
+    public HospitalDao() {
         Map<String, String> env = System.getenv();
-        String dbHost = env.get("DB_HOST");
-        String dbUser = env.get("DB_USER");
-        String dbPassword = env.get("DB_PASSWORD");
+        this.dbHost = env.get("DB_HOST");
+        this.dbUser = env.get("DB_USER");
+        this.dbPassword = env.get("DB_PASSWORD");
+    }
+
+    public void add(List<Hospital> hospitals) throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
@@ -34,5 +38,31 @@ public class HospitalDao {
         ps.close();
         conn.close();
         System.out.println("삽입이 완료되었습니다.");
+    }
+
+    public Hospital getById(String id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM hospital WHERE hospital_id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            Hospital hospital = new Hospital(rs.getString("hospital_id"), rs.getString("address"), rs.getString("district"),
+                    rs.getString("category"), Integer.parseInt(rs.getString("emergency_room")), rs.getString("name"), rs.getString("subdivision"));
+            rs.close();
+            ps.close();
+            conn.close();
+            return hospital;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

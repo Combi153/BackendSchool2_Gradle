@@ -9,13 +9,12 @@ import org.junit.jupiter.api.Test;
 
 class UserDaoTest {
 
-    @Test
     void addAndSelect() {
         UserDao userDao = new DaoFactory().awsUserDao();
-        User user = new User("15", "Ruby", "1135");
+        User user = new User("16", "Ruby", "1135");
         userDao.add(user);
 
-        User selectedUser = userDao.findById("15");
+        User selectedUser = userDao.findById("16");
         Assertions.assertEquals("Ruby", selectedUser.getName());
     }
 }

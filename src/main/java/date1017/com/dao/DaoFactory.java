@@ -4,14 +4,18 @@ import date1017.com.domain.User;
 
 public class DaoFactory {
     public UserDao awsUserDao() {
-        ConnectionMaker connectionMaker = new AWSConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
-        return userDao;
+        return new UserDao(awsConnectionMaker());
     }
 
     public UserDao localUserDao() {
-        ConnectionMaker connectionMaker = new LocalConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
-        return userDao;
+        return new UserDao(localConnectionMaker());
+    }
+
+    public ConnectionMaker awsConnectionMaker() {
+        return new AWSConnectionMaker();
+    }
+
+    public ConnectionMaker localConnectionMaker() {
+        return new LocalConnectionMaker();
     }
 }

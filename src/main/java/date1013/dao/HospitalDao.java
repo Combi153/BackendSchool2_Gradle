@@ -19,10 +19,15 @@ public class HospitalDao {
         this.dbPassword = env.get("DB_PASSWORD");
     }
 
-    public void add(List<Hospital> hospitals) throws SQLException, ClassNotFoundException, IOException {
-
+    private Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+        return conn;
+    }
+
+    public void add(List<Hospital> hospitals) throws SQLException, ClassNotFoundException, IOException {
+
+        Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement("INSERT INTO hospital(hospital_id, address, district, category, emergency_room, name, subdivision) VALUES(?, ?, ?, ?, ?, ?, ?)");
 
         for (Hospital hospital : hospitals) {
@@ -43,13 +48,7 @@ public class HospitalDao {
     public Hospital getById(String id) {
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+            Connection conn = getConnection();
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM hospital WHERE hospital_id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
@@ -60,7 +59,7 @@ public class HospitalDao {
             ps.close();
             conn.close();
             return hospital;
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 

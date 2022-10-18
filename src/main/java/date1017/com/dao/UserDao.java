@@ -50,4 +50,36 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteAll(){
+        try {
+            Connection conn = connection.getConnection();
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getCount() {
+        try {
+            Connection conn = connection.getConnection();
+            PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM users");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            rs.close();
+            ps.close();
+            conn.close();
+            return count;
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
